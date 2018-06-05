@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import library.assistant.data.wrapper.Book;
-import library.assistant.ui.listmember.MemberListController.Member;
 
 
 public class DataHelper {

@@ -19,8 +19,6 @@ import javafx.scene.chart.PieChart;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import library.assistant.ui.listbook.BookListController.Book;
-import library.assistant.ui.listmember.MemberListController;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -127,7 +125,7 @@ public final class DatabaseHandler {
         } finally {
         }
     }
-
+/*
     public boolean deleteBook(Book book) {
         try {
             String deleteStatement = "DELETE FROM BOOK WHERE ID = ?";
@@ -283,4 +281,5 @@ public final class DatabaseHandler {
     public Connection getConnection() {
         return conn;
     }
+*/
 }
