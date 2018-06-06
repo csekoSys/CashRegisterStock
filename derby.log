@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Wed Jun 06 10:24:37 CEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0163-d432-9e2c-00000670d058 
+on database directory /home/szerviz2/NetBeansProjects/CashRegisterStock/Database with class loader sun.misc.Launcher$AppClassLoader@55f96302 
+Loaded from file:/home/szerviz2/NetBeansProjects/CashRegisterStock/dist/run1009148898/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_171-b11
+user.dir=/home/szerviz2/NetBeansProjects/CashRegisterStock
+os.name=Linux
+os.arch=amd64
+os.version=4.4.0-127-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
