@@ -1,7 +1,6 @@
 package model;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class CashRegisterType {
     
@@ -26,7 +25,7 @@ public class CashRegisterType {
         this.licenseNumber = new SimpleStringProperty(licenseNumber);
         this.typeName = new SimpleStringProperty(typeName);
     }
-    
+       
     public String getId() {
         return id.get();
     }
@@ -44,7 +43,7 @@ public class CashRegisterType {
     }
     
     public String getTypeName() {
-        return id.get();
+        return typeName.get();
     }
     
     public void setTypeName(String typeNamex) {

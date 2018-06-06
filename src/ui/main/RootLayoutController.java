@@ -68,6 +68,15 @@ public class RootLayoutController implements Initializable {
      */
     @FXML
     private void components(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/component/ComponentView.fxml"));
+            AnchorPane pane = (AnchorPane) loader.load();
+            Tab t = new Tab();
+            t.setText("Alkatrészek");
+            t.setContent(pane);
+            contentTabPane.getTabs().add(t);
+        } catch (IOException ex) {
+        }
     }
 
 }

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import model.CashRegisterType;
+import model.Component;
 
 public class Database {
 
@@ -50,15 +51,18 @@ public class Database {
 
         try {
             ResultSet rs = dbmd.getTables(null, "APP", "CASHREGISTERTYPES", null);
+            ResultSet rs1 = dbmd.getTables(null, "APP", "COMPONENTS", null);
             if (!rs.next()) {
-                createStatement.execute("CREATE TABLE cashregistertypes(id INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),licenseNumber varchar(4), typeName varchar(100))");
+                createStatement.execute("CREATE TABLE cashregistertypes(id INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),licensenumber varchar(4), typename varchar(100))");
+            }
+            if (!rs1.next()) {
+                createStatement.execute("CREATE TABLE components(id INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),itemnumber varchar(50), barcode varchar(50), componentname varchar(50), quantity Int(100), comment varchar(255)");
             }
         } catch (SQLException ex) {
             System.out.println("Valami baj van az adattáblák létrehozásakor.");
             System.out.println("" + ex);
         }
     }
-    
 
     public ArrayList<CashRegisterType> getAllCashRegiseterType() {
         String sql = "SELECT * FROM cashregistertypes";
@@ -68,7 +72,7 @@ public class Database {
             cashRegisterTypes = new ArrayList<>();
 
             while (rs.next()) {
-                CashRegisterType actualCashRegisterType = new CashRegisterType(rs.getInt("id"), rs.getString("licenseNumber"), rs.getString("typeName"));
+                CashRegisterType actualCashRegisterType = new CashRegisterType(rs.getInt("id"), rs.getString("licensenumber"), rs.getString("typename"));
                 cashRegisterTypes.add(actualCashRegisterType);
             }
         } catch (SQLException ex) {
@@ -85,6 +89,7 @@ public class Database {
             preparedStatement.setString(1, cashRegisterType.getLicenseNumber());
             preparedStatement.setString(2, cashRegisterType.getTypeName());
             preparedStatement.execute();
+            System.out.println(cashRegisterType.getLicenseNumber() + " " + cashRegisterType.getTypeName());
         } catch (SQLException ex) {
             System.out.println("Valami baj van a CashRegisterType hozzáadásakor");
             System.out.println("" + ex);
@@ -93,28 +98,75 @@ public class Database {
 
     public void updateCashRegisterType(CashRegisterType cashRegisterType) {
         try {
-            String sql = "UPDATE cashregistertypes SET liceseNumber = ?, typeName = ? WHERE id = ?";
+            String sql = "UPDATE cashregistertypes SET licensenumber = ?, typename = ? WHERE id = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
             preparedStatement.setString(1, cashRegisterType.getLicenseNumber());
             preparedStatement.setString(2, cashRegisterType.getTypeName());
-            preparedStatement.setInt(4, Integer.parseInt(cashRegisterType.getId()));
+            preparedStatement.setInt(3, Integer.parseInt(cashRegisterType.getId()));
+
             preparedStatement.execute();
         } catch (SQLException ex) {
             System.out.println("Valami baj van a CashRegisterType módosításakor");
             System.out.println("" + ex);
         }
     }
-/*
-    public void removeContact(CashRegisterType person) {
+    
+    /**
+     *
+     * @return components
+     */
+    public ArrayList<Component> getAllComponent() {
+        String sql = "SELECT * FROM components";
+        ArrayList<Component> components = null;
         try {
-            String sql = "delete from contacts where id = ?";
+            ResultSet rs = createStatement.executeQuery(sql);
+            components = new ArrayList<>();
+
+            while (rs.next()) {
+                Component actualComponents = 
+                        new Component(rs.getInt("id"), rs.getString("itemNumber"), rs.getString("barCode"), rs.getString("componentName"), rs.getInt("quatity"), rs.getString("comment"));
+                components.add(actualComponents);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Valami baj van a component kiolvasásakor");
+            System.out.println("" + ex);
+        }
+        return components;
+    }
+
+    public void addComponent(Component component) {
+        try {
+            String sql = "INSERT INTO components (itemnumber, barcode, componentname, quantity, comment) VALUES (?,?,?,?,?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1, Integer.parseInt(person.getId()));
+            preparedStatement.setString(1, component.getItemNumber());
+            preparedStatement.setString(2, component.getBarCode());
+            preparedStatement.setString(3, component.getComponentName());
+            preparedStatement.setInt(4, Integer.parseInt(component.getQuantity()));
+            preparedStatement.setString(5, component.getComment());
+            preparedStatement.execute();
+            System.out.println(component.getItemNumber() + " " + component.getBarCode() + " " + component.getComponentName() + " " + component.getQuantity() + " " + component.getComment());
+        } catch (SQLException ex) {
+            System.out.println("Valami baj van a Component hozzáadásakor");
+            System.out.println("" + ex);
+        }
+    }
+/*
+    public void updateComponent(Component component) {
+        try {
+            String sql = "UPDATE cashregistertypes SET licensenumber = ?, typename = ? WHERE id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setString(1, component.getLicenseNumber());
+            preparedStatement.setString(2, component.getTypeName());
+            preparedStatement.setInt(3, Integer.parseInt(component.getId()));
+
             preparedStatement.execute();
         } catch (SQLException ex) {
-            System.out.println("Valami baj van a contact törlésekor");
+            System.out.println("Valami baj van a CashRegisterType módosításakor");
             System.out.println("" + ex);
         }
     }
 */
+
 }
