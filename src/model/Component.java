@@ -20,25 +20,41 @@ public class Component {
         this.comment = new SimpleStringProperty("");
     }
 
-    public Component(String itemNumber, String barCode, String componentName, Integer quantity, String comment) {
+    public Component(String itemNumber, String barCode, String componentName, String quantity, String comment) {
         this.id = new SimpleStringProperty("");
         this.itemNumber = new SimpleStringProperty(itemNumber);
         this.barCode = new SimpleStringProperty(barCode);
         this.componentName = new SimpleStringProperty(componentName);
-        this.quantity = new SimpleStringProperty(String.valueOf(quantity));
+        this.quantity = new SimpleStringProperty(quantity);
         this.comment = new SimpleStringProperty(comment);
     }
 
-    public Component(Integer id, String itemNumber, String barCode, String componentName, Integer quantity, String comment) {
+    public Component(Integer id, String itemNumber, String barCode, String componentName, String quantity, String comment) {
         this.id = new SimpleStringProperty(String.valueOf(id));
         this.itemNumber = new SimpleStringProperty(itemNumber);
         this.barCode = new SimpleStringProperty(barCode);
         this.componentName = new SimpleStringProperty(componentName);
-        this.quantity = new SimpleStringProperty(String.valueOf(quantity));
+        this.quantity = new SimpleStringProperty(quantity);
         this.comment = new SimpleStringProperty(comment);
     }
 
     public Component(String itemNumber, String barCode, String componentName, String comment) {
+        this.itemNumber = new SimpleStringProperty(itemNumber);
+        this.barCode = new SimpleStringProperty(barCode);
+        this.componentName = new SimpleStringProperty(componentName);
+        this.comment = new SimpleStringProperty(comment);
+    }
+
+    /**
+     *
+     * @param id
+     * @param itemNumber
+     * @param barCode
+     * @param componentName
+     * @param comment
+     */
+    public Component(Integer id, String itemNumber, String barCode, String componentName, String comment) {
+        this.id = new SimpleStringProperty(String.valueOf(id));
         this.itemNumber = new SimpleStringProperty(itemNumber);
         this.barCode = new SimpleStringProperty(barCode);
         this.componentName = new SimpleStringProperty(componentName);

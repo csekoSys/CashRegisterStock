@@ -50,8 +50,8 @@ public class ComponentViewController implements Initializable {
 
         if (componentName.length() < 4) {
 
-            System.out.println("Hibás adatok --> addCashRegisterType");
-            Helper.alert("Hibás adatok --> addCashRegisterType", anchorPane);
+            System.out.println("Hibás adatok --> addComponent");
+            Helper.alert("Hibás adatok --> addComponent", anchorPane);
         } else {
             Component newComponent = new Component(itemNumber, barCode, componentName, comment);
             data.add(newComponent);
@@ -68,7 +68,7 @@ public class ComponentViewController implements Initializable {
         table.setEditable((true));
 
         TableColumn<Component, String> idCol = new TableColumn<>("#");
-        idCol.setMinWidth(30);
+        idCol.setMinWidth(50);
         idCol.setCellFactory(TextFieldTableCell.forTableColumn());
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
@@ -76,16 +76,53 @@ public class ComponentViewController implements Initializable {
         itemNumberCol.setMinWidth(130);
         itemNumberCol.setCellFactory(TextFieldTableCell.forTableColumn());
         itemNumberCol.setCellValueFactory(new PropertyValueFactory<>("itemNumber"));
-/*
+
         itemNumberCol.setOnEditCommit((TableColumn.CellEditEvent<Component, String> t) -> {
             Component actualComponent = (Component) t.getTableView().getItems().get(t.getTablePosition().getRow());
             actualComponent.setItemNumber(t.getNewValue());
             db.updateComponent(actualComponent);
         });
-*/
 
+        TableColumn<Component, String> barCodeCol = new TableColumn<>("Vonalkód");
+        barCodeCol.setMinWidth(130);
+        barCodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        barCodeCol.setCellValueFactory(new PropertyValueFactory<>("barCode"));
 
-        table.getColumns().addAll(idCol, itemNumberCol);
+        barCodeCol.setOnEditCommit((TableColumn.CellEditEvent<Component, String> t) -> {
+            Component actualComponent = (Component) t.getTableView().getItems().get(t.getTablePosition().getRow());
+            actualComponent.setItemNumber(t.getNewValue());
+            db.updateComponent(actualComponent);
+        });
+
+        TableColumn<Component, String> componentNameCol = new TableColumn<>("Alkatrész");
+        componentNameCol.setMinWidth(130);
+        componentNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        componentNameCol.setCellValueFactory(new PropertyValueFactory<>("componentName"));
+
+        componentNameCol.setOnEditCommit((TableColumn.CellEditEvent<Component, String> t) -> {
+            Component actualComponent = (Component) t.getTableView().getItems().get(t.getTablePosition().getRow());
+            actualComponent.setItemNumber(t.getNewValue());
+            db.updateComponent(actualComponent);
+        });
+
+        TableColumn<Component, String> quantityCol = new TableColumn<>("Mennyiség");
+        quantityCol.setMinWidth(130);
+        quantityCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
+        TableColumn<Component, String> commentCol = new TableColumn<>("Megjegyzés");
+        commentCol.setMinWidth(130);
+        commentCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        commentCol.setCellValueFactory(new PropertyValueFactory<>("comment"));
+
+        commentCol.setOnEditCommit((TableColumn.CellEditEvent<Component, String> t) -> {
+            Component actualComponent = (Component) t.getTableView().getItems().get(t.getTablePosition().getRow());
+            actualComponent.setItemNumber(t.getNewValue());
+            db.updateComponent(actualComponent);
+        });        
+        
+        
+        table.getColumns().addAll(idCol, itemNumberCol, barCodeCol, componentNameCol, quantityCol, commentCol);
         data.addAll(db.getAllComponent());
         table.setItems(data);
     }

@@ -50,13 +50,32 @@ public class Database {
         }
 
         try {
-            ResultSet rs = dbmd.getTables(null, "APP", "CASHREGISTERTYPES", null);
-            ResultSet rs1 = dbmd.getTables(null, "APP", "COMPONENTS", null);
-            if (!rs.next()) {
-                createStatement.execute("CREATE TABLE cashregistertypes(id INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),licensenumber varchar(4), typename varchar(100))");
+            ResultSet reCashRegisterType = dbmd.getTables(null, "APP", "CASHREGISTERTYPES", null);
+            ResultSet rsComponent = dbmd.getTables(null, "APP", "COMPONENTS", null);
+
+            if (!reCashRegisterType.next()) {
+                createStatement.execute("CREATE TABLE cashregistertypes("
+                        + "id INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                        + "licensenumber varchar(4), "
+                        + "typename varchar(100)"
+                        + ")");
+                System.out.println("cashregistertypes adatbázis létrehozva");
+            } else {
+                System.out.println("cashregistertypes adatbázis létezik");
             }
-            if (!rs1.next()) {
-                createStatement.execute("CREATE TABLE components(id INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),itemnumber varchar(50), barcode varchar(50), componentname varchar(50), quantity Int(100), comment varchar(255)");
+
+            if (!rsComponent.next()) {
+                createStatement.execute("CREATE TABLE components ("
+                        + "id INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                        + "itemnumber varchar(50), "
+                        + "barcode varchar(50), "
+                        + "componentname varchar(50), "
+                        + "quantity varchar(10), "
+                        + "comment varchar(255)"
+                        + ")");
+                System.out.println("components adatbázis létrehozva");
+            } else {
+                System.out.println("components adatbázis létezik");
             }
         } catch (SQLException ex) {
             System.out.println("Valami baj van az adattáblák létrehozásakor.");
@@ -76,7 +95,7 @@ public class Database {
                 cashRegisterTypes.add(actualCashRegisterType);
             }
         } catch (SQLException ex) {
-            System.out.println("Valami baj van a userek kiolvasásakor");
+            System.out.println("Valami baj van a getAllCashRegiseterType kiolvasásakor");
             System.out.println("" + ex);
         }
         return cashRegisterTypes;
@@ -111,7 +130,7 @@ public class Database {
             System.out.println("" + ex);
         }
     }
-    
+
     /**
      *
      * @return components
@@ -124,8 +143,8 @@ public class Database {
             components = new ArrayList<>();
 
             while (rs.next()) {
-                Component actualComponents = 
-                        new Component(rs.getInt("id"), rs.getString("itemNumber"), rs.getString("barCode"), rs.getString("componentName"), rs.getInt("quatity"), rs.getString("comment"));
+                Component actualComponents
+                        = new Component(rs.getInt("id"), rs.getString("itemnumber"), rs.getString("barcode"), rs.getString("componentname"), rs.getString("comment"));
                 components.add(actualComponents);
             }
         } catch (SQLException ex) {
@@ -137,36 +156,34 @@ public class Database {
 
     public void addComponent(Component component) {
         try {
-            String sql = "INSERT INTO components (itemnumber, barcode, componentname, quantity, comment) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO components (itemnumber, barcode, componentname, comment) VALUES (?,?,?,?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, component.getItemNumber());
             preparedStatement.setString(2, component.getBarCode());
             preparedStatement.setString(3, component.getComponentName());
-            preparedStatement.setInt(4, Integer.parseInt(component.getQuantity()));
-            preparedStatement.setString(5, component.getComment());
+            preparedStatement.setString(4, component.getComment());
             preparedStatement.execute();
-            System.out.println(component.getItemNumber() + " " + component.getBarCode() + " " + component.getComponentName() + " " + component.getQuantity() + " " + component.getComment());
         } catch (SQLException ex) {
             System.out.println("Valami baj van a Component hozzáadásakor");
             System.out.println("" + ex);
         }
     }
-/*
+
     public void updateComponent(Component component) {
         try {
-            String sql = "UPDATE cashregistertypes SET licensenumber = ?, typename = ? WHERE id = ?";
+            String sql = "UPDATE components SET itemnumber = ?, barcode = ?, componentname = ?, comment = ? WHERE id = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
-            preparedStatement.setString(1, component.getLicenseNumber());
-            preparedStatement.setString(2, component.getTypeName());
-            preparedStatement.setInt(3, Integer.parseInt(component.getId()));
-
+            preparedStatement.setString(1, component.getItemNumber());
+            preparedStatement.setString(2, component.getBarCode());
+            preparedStatement.setString(3, component.getComponentName());
+            preparedStatement.setString(4, component.getComment());
+            preparedStatement.setInt(5, Integer.parseInt(component.getId()));
             preparedStatement.execute();
         } catch (SQLException ex) {
-            System.out.println("Valami baj van a CashRegisterType módosításakor");
+            System.out.println("Valami baj van a updateComponent módosításakor");
             System.out.println("" + ex);
         }
     }
-*/
 
 }
