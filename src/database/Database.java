@@ -13,9 +13,8 @@ import model.Component;
 
 public class Database {
 
-    final String URL = "jdbc:derby:Database;create=true";
-    final String USERNAME = "";
-    final String PASSWORD = "";
+    final String URL = "jdbc:derby:RaktarDB;create=true;shutdown=true";
+
 
     Connection conn = null;
     Statement createStatement = null;
@@ -25,6 +24,7 @@ public class Database {
         //Megpróbáljuk életre kelteni
         try {
             conn = DriverManager.getConnection(URL);
+            
             System.out.println("Connection sikeres");
         } catch (SQLException ex) {
             System.out.println("Connection error a létrehozásakor.");
@@ -66,7 +66,7 @@ public class Database {
 
             if (!rsComponent.next()) {
                 createStatement.execute("CREATE TABLE components ("
-                        + "id INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                        + "id INT NOT NULL primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                         + "itemnumber varchar(50), "
                         + "barcode varchar(50), "
                         + "componentname varchar(50), "
