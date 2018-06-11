@@ -44,7 +44,7 @@ public class RootLayoutController implements Initializable {
     }
 
     /**
-     * Pénztárgép típusok
+     * Pénztárgép típusok listája + hozzáadás + módosítás
      *
      * @param event
      */
@@ -62,7 +62,7 @@ public class RootLayoutController implements Initializable {
     }
 
     /**
-     * Alkatrészek listája
+     * Alkatrészek listája + hozzáadás + módosítás
      *
      * @param event
      */
@@ -73,6 +73,32 @@ public class RootLayoutController implements Initializable {
             AnchorPane pane = (AnchorPane) loader.load();
             Tab t = new Tab();
             t.setText("Alkatrészek");
+            t.setContent(pane);
+            contentTabPane.getTabs().add(t);
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void supply(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/supply/SupplyView.fxml"));
+            AnchorPane pane = (AnchorPane) loader.load();
+            Tab t = new Tab();
+            t.setText("Bevételezés");
+            t.setContent(pane);
+            contentTabPane.getTabs().add(t);
+        } catch (IOException ex) {
+        }
+    }
+
+    @FXML
+    private void partnersTabOpen(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/partner/PartnerView.fxml"));
+            AnchorPane pane = (AnchorPane) loader.load();
+            Tab t = new Tab();
+            t.setText("Partnerek");
             t.setContent(pane);
             contentTabPane.getTabs().add(t);
         } catch (IOException ex) {

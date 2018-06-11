@@ -75,4 +75,10 @@ public class Component {
         comment.set(commentx);
     }
 
+    @Override
+    public String toString() {
+        return getId() + " - " + getComponentName();
+    }
+    
+    
 }

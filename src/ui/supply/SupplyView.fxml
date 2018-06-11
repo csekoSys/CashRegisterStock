@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.supply.SupplyViewController">
+   <children>
+      <Label layoutX="22.0" layoutY="14.0" text="Bevételezés" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="716.0" AnchorPane.topAnchor="10.0" />
+      <HBox layoutX="1.0" layoutY="39.0" prefHeight="34.0" prefWidth="790.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Label text="Beszállító">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="partner" prefHeight="26.0" prefWidth="265.0">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </TextField>
+            <Label text="Biz. szám">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="certificateNumber" prefHeight="26.0" prefWidth="111.0">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </TextField>
+            <Label text="Dátum">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Label>
+            <DatePicker fx:id="supplyDate">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </DatePicker>
+         </children>
+      </HBox>
+      <VBox layoutX="14.0" layoutY="74.0" prefHeight="34.0" prefWidth="790.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="75.0">
+         <children>
+            <Line endX="700.0" layoutX="116.0" layoutY="100.0" startX="-100.0">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+            </Line>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+               </VBox.margin>
+               <children>
+                  <Label text="Alkatrész">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ComboBox fx:id="component" prefHeight="26.0" prefWidth="297.0">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <Label text="Mennyiség">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="piece" prefHeight="26.0" prefWidth="53.0">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <JFXButton contentDisplay="RIGHT" onAction="#addItem" prefHeight="26.0" prefWidth="198.0" text="Tétel hozzáadása" />
+               </children>
+            </HBox>
+            <Line endX="700.0" startX="-100.0">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+            </Line>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER_LEFT" layoutX="184.0" layoutY="609.0" prefHeight="34.0" prefWidth="811.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+         <children>
+            <JFXButton alignment="TOP_CENTER" contentDisplay="RIGHT" onAction="#saveSupply" prefHeight="26.0" prefWidth="95.0" text="Ment" />
+         </children>
+      </HBox>
+      <TableView fx:id="table" layoutX="14.0" layoutY="151.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="150.0" />
+   </children>
+</AnchorPane>

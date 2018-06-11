@@ -10,11 +10,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import model.CashRegisterType;
 import model.Component;
+import model.Partner;
 
 public class Database {
 
-    final String URL = "jdbc:derby:RaktarDB;create=true;shutdown=true";
-
+    private final String URL = "jdbc:derby:RaktarDB;create=true";
+    //   final String URL = "jdbc:sqlite:database/raktar.db";
 
     Connection conn = null;
     Statement createStatement = null;
@@ -24,7 +25,7 @@ public class Database {
         //Megpróbáljuk életre kelteni
         try {
             conn = DriverManager.getConnection(URL);
-            
+
             System.out.println("Connection sikeres");
         } catch (SQLException ex) {
             System.out.println("Connection error a létrehozásakor.");
@@ -52,6 +53,7 @@ public class Database {
         try {
             ResultSet reCashRegisterType = dbmd.getTables(null, "APP", "CASHREGISTERTYPES", null);
             ResultSet rsComponent = dbmd.getTables(null, "APP", "COMPONENTS", null);
+            ResultSet rsPartner = dbmd.getTables(null, "APP", "PARTNERS", null);
 
             if (!reCashRegisterType.next()) {
                 createStatement.execute("CREATE TABLE cashregistertypes("
@@ -77,6 +79,17 @@ public class Database {
             } else {
                 System.out.println("components adatbázis létezik");
             }
+
+            if (!rsPartner.next()) {
+                createStatement.execute("CREATE TABLE partners("
+                        + "id INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                        + "partnername varchar(100)"
+                        + ")");
+                System.out.println("partners adatbázis létrehozva");
+            } else {
+                System.out.println("partners adatbázis létezik");
+            }
+
         } catch (SQLException ex) {
             System.out.println("Valami baj van az adattáblák létrehozásakor.");
             System.out.println("" + ex);
@@ -186,4 +199,52 @@ public class Database {
         }
     }
 
+        /**
+     *
+     * @return 
+     */
+    public ArrayList<Partner> getAllPartner() {
+        String sql = "SELECT * FROM partners";
+        ArrayList<Partner> partners = null;
+        try {
+            ResultSet rs = createStatement.executeQuery(sql);
+            partners = new ArrayList<>();
+
+            while (rs.next()) {
+                Partner actualPartner
+                        = new Partner(rs.getInt("id"), rs.getString("partnername"));
+                partners.add(actualPartner);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Valami baj van a getAllPartner kiolvasásakor");
+            System.out.println("" + ex);
+        }
+        return partners;
+    }
+
+    public void addPartner(Partner partner) {
+        try {
+            String sql = "INSERT INTO partners (partnername) VALUES (?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, partner.getPartnerName());
+
+            preparedStatement.execute();
+        } catch (SQLException ex) {
+            System.out.println("Valami baj van a addPartner hozzáadásakor");
+            System.out.println("" + ex);
+        }
+    }
+
+    public void updatePartner(Partner partner) {
+        try {
+            String sql = "UPDATE partners SET partnername = ? WHERE id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, partner.getPartnerName());
+            preparedStatement.setInt(2, Integer.parseInt(partner.getid()));
+            preparedStatement.execute();
+        } catch (SQLException ex) {
+            System.out.println("Valami baj van a updatePartner módosításakor");
+            System.out.println("" + ex);
+        }
+    }
 }
