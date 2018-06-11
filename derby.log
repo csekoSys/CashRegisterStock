@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Mon Jun 11 15:22:42 CEST 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0163-ef03-5311-000006702b48 
+Mon Jun 11 16:04:06 CEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0163-ef29-3970-00000671e138 
 on database directory /home/szerviz2/NetBeansProjects/CashRegisterStock/RaktarDB with class loader sun.misc.Launcher$AppClassLoader@55f96302 
-Loaded from file:/home/szerviz2/NetBeansProjects/CashRegisterStock/dist/run169706029/lib/derby.jar
+Loaded from file:/home/szerviz2/NetBeansProjects/CashRegisterStock/dist/run1574887343/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_171-b11
 user.dir=/home/szerviz2/NetBeansProjects/CashRegisterStock

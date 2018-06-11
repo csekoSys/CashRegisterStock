@@ -211,8 +211,7 @@ public class Database {
             partners = new ArrayList<>();
 
             while (rs.next()) {
-                Partner actualPartner
-                        = new Partner(rs.getInt("id"), rs.getString("partnername"));
+                Partner actualPartner = new Partner(rs.getInt("id"), rs.getString("partnername"));
                 partners.add(actualPartner);
             }
         } catch (SQLException ex) {
